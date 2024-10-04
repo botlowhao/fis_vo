@@ -29,10 +29,10 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-catkin_install_python(PROGRAMS
-  scripts/fis_vo_node.py  # 添加你的脚本路径
-  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
+# catkin_install_python(PROGRAMS
+#   scripts/fis_vo_node.py  # 添加你的脚本路径
+#   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+# )
 
 ## Declare the executable
 add_executable(orbdata_construct_node src/orbdata_construct.cpp)
