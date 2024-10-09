@@ -10,15 +10,15 @@ from matplotlib import rcParams
 
 config = {
     "font.family": 'serif',          # 使用 serif 字体
-    "font.size": 18,                 # 字体大小14，相当于小四
+    "font.size": 28,                 # 字体大小14，相当于小四
     "mathtext.fontset": 'stix',      # 数学字体设置为 stix，接近 Times New Roman
     'axes.unicode_minus': False,     # 处理负号的显示
     'axes.labelweight': 'bold',      # 坐标轴标签加粗
-    'lines.linewidth': 2.5,            # 线条加粗为 2
-    'axes.titlesize': 24,            # 标题字体大小
+    'lines.linewidth': 3,            # 线条加粗为 2
+    'axes.titlesize': 32,            # 标题字体大小
     'axes.titleweight': 'bold',      # 标题加粗
-    'axes.labelsize': 22,            # 坐标轴标签字体大小
-    'legend.fontsize': 16            # 图例字体大小
+    'axes.labelsize': 27,            # 坐标轴标签字体大小
+    'legend.fontsize': 28            # 图例字体大小
 }
 rcParams.update(config)
 
@@ -80,13 +80,13 @@ def create_fis(Nu_stats, Er_stats):
     # Display input/output variable and its membership function
     
     # # rho.view() 只能用红绿蓝
-    # plt.plot(x_Nu, Nu['B1'].mf, 'r', label='B1')
-    # plt.plot(x_Nu, Nu['B2'].mf, 'b', label='B2')
-    # plt.title(r"VO-FIS Input Membership Function $N_u$")
-    # plt.xlabel(r"$N_u$")
-    # plt.ylabel("Membership Value")
-    # plt.legend()
-    # plt.show()
+    plt.plot(x_Nu, Nu['B1'].mf, 'r', label='B1')
+    plt.plot(x_Nu, Nu['B2'].mf, 'b', label='B2')
+    plt.title(r"VO-FIS Input Membership Function $N_u$")
+    plt.xlabel(r"$N_u$")
+    plt.ylabel("Membership Value")
+    plt.legend()
+    plt.show()
 
 
     # omega.view() 只能用红蓝
@@ -99,14 +99,14 @@ def create_fis(Nu_stats, Er_stats):
     plt.show()
 
     # # Q1.view() 只能用红蓝
-    # plt.plot(x_V1, V1['High Variance'].mf, 'r', label='High Variance')
-    # plt.plot(x_V1, V1['Medium Variance'].mf, 'g', label='Medium Variance')
-    # plt.plot(x_V1, V1['Low Variance'].mf, 'b', label='Low Variance')
-    # plt.title(r"VO-FIS Output Membership Function $V_p$")
-    # plt.xlabel(r"$V_p$")
-    # plt.ylabel("Membership Value")
-    # plt.legend()
-    # plt.show()
+    plt.plot(x_V1, V1['High Variance'].mf, 'r', label='$V_{\mathrm{H}}$')
+    plt.plot(x_V1, V1['Medium Variance'].mf, 'g', label='$V_{\mathrm{M}}$')
+    plt.plot(x_V1, V1['Low Variance'].mf, 'b', label='$V_{\mathrm{L}}$')
+    plt.title(r"VO-FIS Output Membership Function $\tilde{\sigma}_{\mathbf{p}}^{2}$")
+    plt.xlabel(r"$\tilde{\sigma}_{\mathbf{p}}^{2}$")
+    plt.ylabel("Membership Value")
+    plt.legend()
+    plt.show()
 
     # Set fuzzy rules
     rule1 = ctrl.Rule(antecedent=(Nu['B2'] & Er['B3']), consequent=V1['Low Variance'], label='R1')
@@ -130,7 +130,7 @@ if __name__ == "__main__":
     file_path = '/home/wyatt/catkin_ws/src/fis_vo/ANFIS_dataset/onlyORBdata/ORB_A.csv'
     Nu_stats, Er_stats = data_preprocessing(file_path)
     V1_Calculate, V1 = create_fis(Nu_stats, Er_stats)
-    # output_V1 = test_fis(V1_Calculate)
-    # print(output_V1)
-    # V1.view(sim=V1_Calculate)
-    # plt.show()
+    output_V1 = test_fis(V1_Calculate)
+    print(output_V1)
+    V1.view(sim=V1_Calculate)
+    plt.show()
